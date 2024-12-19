@@ -45,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Aditya = et1.getText().toString();
-                String Krishna = et2.getText().toString();
-                String Teacher = et3.getText().toString();
-                String Class = et4.getText().toString();
+                String A = et1.getText().toString();
+                String K = et2.getText().toString();
+                String T = et3.getText().toString();
+                String C = et4.getText().toString();
 
-                if (Aditya.equals(s1) && Krishna.equals(s2) && Teacher.equals(s3) && Class.equals(s4)) {
+               if(A.isEmpty()||K.isEmpty()||T.isEmpty()||C.isEmpty()){
+                   Toast.makeText(getApplicationContext(), "ALL THE FIELDS MUST BE FILLED", Toast.LENGTH_LONG).show();
+               }
 
-                    Toast.makeText(getApplicationContext(), "APPROVED", Toast.LENGTH_LONG).show();
-                }
             }
         });
 
