@@ -13,6 +13,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText et1;
@@ -53,9 +61,39 @@ public class MainActivity extends AppCompatActivity {
                if(A.isEmpty()||K.isEmpty()||T.isEmpty()||C.isEmpty()){
                    Toast.makeText(getApplicationContext(), "ALL THE FIELDS MUST BE FILLED", Toast.LENGTH_LONG).show();
                }
+               else
+                {
+                    try {
+                        callApi();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        }
+
+            private void callApi() throws JSONException {
+                String apiUrl="https://log-app-demo-api.onrender.com/addvisitor";
+                JSONObject data=new JSONObject();
+                try {
+                    data.put("firstname",et1);
+                    data.put("lastname",et2);
+                    data.put("whomToMeet",et3);
+                    data.put("purpose",et4);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                JsonObjectRequest request= new JsonObjectRequest(
+                        Request.Method.POST,
+                        apiUrl,
+                        data,
+                        response -> Toast.makeText(getApplicationContext(),"Successfully Added",Toast.LENGTH_LONG).show(),
+                        error -> Toast.makeText(getApplicationContext(),"Something Went Wrong",Toast.LENGTH_LONG).show()
+                );
+                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                queue.add(request);
 
             }
-        });
+            });
 
     }
 }
